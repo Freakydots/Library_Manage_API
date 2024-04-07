@@ -24,9 +24,16 @@ class Student(BaseModel):
     address: Address
 
 # API Endpoints
+# @app.head("/")
+# async def root_head():
+#     return Response(status_code=200)
 @app.head("/")
 async def root_head():
-    return Response(status_code=200)
+    return {}
+
+@app.get("/")
+async def root_get():
+    return {}
 
 @app.post("/students", status_code=201)
 async def create_student(student: Student):
