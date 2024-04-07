@@ -37,7 +37,7 @@ async def root_get():
 
 @app.post("/students", status_code=201)
 async def create_student(student: Student):
-    result = collection.insert_one(student.dict())
+    result = collection.insert_one(student.model_dump())
     return {"id": str(result.inserted_id)}
 
 @app.get("/students", response_model=list[Student])
@@ -61,7 +61,7 @@ async def get_student(id: str):
 
 @app.patch("/students/{id}")
 async def update_student(id: str, student: Student):
-    updated_student = student.dict(exclude_unset=True)
+    updated_student = student.model_dump(exclude_unset=True)
     result = collection.update_one({"_id": ObjectId(id)}, {"$set": updated_student})
     if result.modified_count == 1:
         return {"message": "Student updated successfully"}
