@@ -23,6 +23,11 @@ class Student(BaseModel):
     address: Address
 
 # API Endpoints
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 @app.post("/students", status_code=201)
 async def create_student(student: Student):
     result = collection.insert_one(student.dict())
